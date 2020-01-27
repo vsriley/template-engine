@@ -45,12 +45,14 @@ function createManager(){
     {
         name: "managerID",
         type: "input",
-        message: "What is your manager's ID?"
+        message: "What is your manager's ID?",
+        validate: validateID
     },
     {
         name: "email",
         type: "input",
-        message: "What is your manager's email?"
+        message: "What is your manager's email?",
+        validate: validateEmail
     },
     {
         name: "officeNumber",
@@ -81,12 +83,14 @@ function createEngineer(){
     {
         name: "engineerID",
         type: "input",
-        message: "What is your engineer's ID?"
+        message: "What is your engineer's ID?",
+        validate: validateID
     },
     {
         name: "email",
         type: "input",
-        message: "What is your engineer's email?"
+        message: "What is your engineer's email?",
+        validate: validateEmail
     },
     {
         name: "gitHubUsername",
@@ -111,12 +115,14 @@ function createIntern(){
     {
         name: "internID",
         type: "input",
-        message: "What is your intern's ID?"
+        message: "What is your intern's ID?",
+        validate: validateID
     },
     {
         name: "email",
         type: "input",
-        message: "What is your intern's email?"
+        message: "What is your intern's email?",
+        validate: validateEmail
     },
     {
         name: "school",
@@ -136,10 +142,31 @@ function createTeam(){
     const outputPath = path.resolve(__dirname, "output", "team.html");
     fs.writeFile(outputPath, render(employees) ,function(err){
         if(err) throw err;
-        console.log("team.html successfully created!");
+        console.log("Team successfully created!");
     });
 };
 
+// Ensure id is a number and that it is not already in use by another employee
+function validateID(id){
+    if(isNaN(id)){
+        return "Invalid ID. Please enter a valid number for employee ID";
+    }
+    for (i = 0; i < employeeID.length; i++) {
+        if (id === employeeID[i]) {
+          return "Invalid ID. Please enter a unique employee ID";
+        }
+    }
+    return true;
+};
+
+// Ensure email address contains @ and .
+function validateEmail(email){
+    if(email.indexOf("@") != -1 && email.indexOf(".") != -1){
+        return true;
+    }else{
+        return "Please enter a valid email address";
+    }
+};
 
 chooseEmployee();
 
