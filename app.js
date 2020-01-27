@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 
 
+//figure out a way only one manager can be created?
 function chooseEmployee() {
     inquirer.prompt({
         name: "employeeType",
