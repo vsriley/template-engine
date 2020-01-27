@@ -11,8 +11,7 @@ let employeeList = ["Manager", "Engineer", "Intern", "I don't want to add anymor
 const employees = [];
 const employeeID = [];
 
-
-//figure out a way only one manager can be created?
+//user asked for input on which employee type to create
 function chooseEmployee() {
     inquirer.prompt({
         name: "employeeType",
@@ -35,7 +34,6 @@ function chooseEmployee() {
   };
 
 
-  //make sure manager id and office number is a number and id is not already taken, email is valid
 function createManager(){
     inquirer.prompt([{
         name: "name",
@@ -73,7 +71,6 @@ function createManager(){
     });
 };
 
-//make sure engineer id is a number and id is not already taken, email is valid
 function createEngineer(){
     inquirer.prompt([{
         name: "name",
@@ -105,7 +102,6 @@ function createEngineer(){
     });
 };
 
-//make sure engineer id is a number and id is not already taken, email is valid
 function createIntern(){
     inquirer.prompt([{
         name: "name",
@@ -137,7 +133,6 @@ function createIntern(){
     });
 };
 
-//figure out where to get data from
 function createTeam(){
     const outputPath = path.resolve(__dirname, "output", "team.html");
     fs.writeFile(outputPath, render(employees) ,function(err){
