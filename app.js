@@ -5,8 +5,11 @@ const Employee  = require("./lib/Employee");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const render = require("./lib/htmlRenderer");
 
 let employeeList = ["Manager", "Engineer", "Intern", "I don't want to add anymore employees"];
+const employees = [];
+const employeeID = [];
 
 
 //figure out a way only one manager can be created?
@@ -55,7 +58,9 @@ function createManager(){
         message: "What is your manager's office number?"
     }]).then((answer) => {
         console.log(answer);
-        console.log(new Manager(answer.name, answer.managerID, answer.email, answer.officeNumber));
+        const newManager = new Manager(answer.name, answer.managerID, answer.email, answer.officeNumber);
+        employees.push(newManager);
+        employeeID.push(answer.managerID);
         //ensure only one manager is created
         for( var i = 0; i < employeeList.length; i++){ 
             if (employeeList[i] === "Manager") {
@@ -89,7 +94,9 @@ function createEngineer(){
         message: "What is your engineer's GitHub username?"
     }]).then((answer) => {
         console.log(answer);
-        console.log(new Engineer(answer.name, answer.engineerID, answer.email, answer.gitHubUsername));
+        const newEngineer = new Engineer(answer.name, answer.engineerID, answer.email, answer.gitHubUsername);
+        employees.push(newEngineer);
+        employeeID.push(answer.engineerID);
         chooseEmployee();
     });
 };
@@ -117,7 +124,9 @@ function createIntern(){
         message: "Where does your intern go to school?"
     }]).then((answer) => {
         console.log(answer);
-        console.log(new Intern(answer.name, answer.internID, answer.email, answer.school));
+        const newIntern = new Intern(answer.name, answer.internID, answer.email, answer.school);
+        employees.push(newIntern);
+        employeeID.push(answer.internID);
         chooseEmployee();
     });
 };
@@ -125,7 +134,7 @@ function createIntern(){
 //figure out where to get data from
 function createTeam(){
     const outputPath = path.resolve(__dirname, "output", "team.html");
-    fs.writeFile(outputPath, data ,function(err){
+    fs.writeFile(outputPath, render(employees) ,function(err){
         if(err) throw err;
         console.log("team.html successfully created!");
     });
@@ -135,4 +144,3 @@ function createTeam(){
 chooseEmployee();
 
 
-const render = require("./lib/htmlRenderer");
