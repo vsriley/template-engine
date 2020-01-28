@@ -55,7 +55,8 @@ function createManager(){
     {
         name: "officeNumber",
         type: "input",
-        message: "What is your manager's office number?"
+        message: "What is your manager's office number?",
+        validate: validateOfficeNumber
     }]).then((answer) => {
         console.log(answer);
         const newManager = new Manager(answer.name, answer.managerID, answer.email, answer.officeNumber);
@@ -163,6 +164,13 @@ function validateEmail(email){
     }
 };
 
+// Ensure office number is an email
+function validateOfficeNumber(officeNumber){
+    if(isNaN(officeNumber)){
+        return "Please enter a valid number for manager office number";
+    }
+    return true;
+};
 chooseEmployee();
 
 
