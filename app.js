@@ -164,7 +164,7 @@ function validateEmail(email){
     }
 };
 
-// Ensure office number is an email
+// Ensure office number is a number
 function validateOfficeNumber(officeNumber){
     if(isNaN(officeNumber)){
         return "Please enter a valid number for manager office number";
