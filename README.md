@@ -20,6 +20,9 @@ all of the teams information.
 
 ## Credits
 
+## Demo
+
+![Template Engine Generator Demo](demo/demo.gif)
 
 ## License
 
